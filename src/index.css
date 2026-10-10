@@ -1,0 +1,185 @@
+/*
+  index.css - global styles + design tokens
+  -----------------------------------------------------------------
+  1. Tailwind is loaded with one line.
+  2. Colours live in CSS variables. The .dark class swaps their values,
+     so components never need to repeat "dark:" everywhere.
+  3. @theme tells Tailwind the variable names, so we can write
+     classes like  bg-surface  text-muted  border-line  text-accent.
+*/
+@import 'tailwindcss';
+
+/* Lets Tailwind's `dark:` variant follow the .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Light theme (default values) ---------- */
+:root {
+  --bg: #f6f8fc;
+  --surface: #ffffff;
+  --surface-2: #eef2f9;
+  --fg: #0b1220;
+  --muted: #475569;
+  --line: #dbe3ef;
+  --accent: #0b5fd6; /* electric blue */
+  --accent-2: #0e7490; /* cyan */
+  --on-accent: #ffffff; /* text colour placed on accent backgrounds */
+  --glow-1: rgb(11 95 214 / 0.14);
+  --glow-2: rgb(14 116 144 / 0.12);
+  --card-shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 12px 32px -16px rgb(15 23 42 / 0.18);
+  --card-shadow-hover: 0 1px 2px rgb(15 23 42 / 0.06), 0 22px 44px -18px rgb(11 95 214 / 0.3);
+}
+
+/* ---------- Dark theme ---------- */
+.dark {
+  --bg: #060b18;
+  --surface: #0d1526;
+  --surface-2: #111c33;
+  --fg: #e8eefc;
+  --muted: #94a3b8;
+  --line: #1c2a47;
+  --accent: #38bdf8;
+  --accent-2: #22d3ee;
+  --on-accent: #04101f;
+  --glow-1: rgb(56 189 248 / 0.16);
+  --glow-2: rgb(34 211 238 / 0.1);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 36px -18px rgb(0 0 0 / 0.7);
+  --card-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.5), 0 22px 48px -18px rgb(56 189 248 / 0.28);
+}
+
+/* ---------- Tell Tailwind about our tokens ---------- */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-on-accent: var(--on-accent);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Sora', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --shadow-card: var(--card-shadow);
+  --shadow-card-hover: var(--card-shadow-hover);
+}
+
+/* ---------- Keyframes (plain CSS, used by the helpers below) ---------- */
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(40px, 30px, 0) scale(1.12);
+  }
+}
+@keyframes shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ---------- Base styles ---------- */
+html {
+  scroll-behavior: smooth;
+  /* Stops the sticky navbar from covering section headings after a jump */
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: clip; /* safety net: never allow sideways scrolling */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.375rem;
+}
+
+/* ---------- Small reusable helpers ---------- */
+
+/* Gradient text with a slow, subtle shimmer */
+.text-gradient {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent-2), var(--accent));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+/* Slow-drifting blurred colour blobs behind the hero */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  will-change: transform;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+.blob-reverse {
+  animation-duration: 30s;
+  animation-direction: alternate-reverse;
+}
+
+/* Faint blueprint grid used behind the hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 35%, #000 30%, transparent 78%);
+  opacity: 0.55;
+}
+
+/* "Skip to content" link for keyboard + screen reader users */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- Respect "reduce motion" system setting ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

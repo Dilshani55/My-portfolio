@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>Dilshani Vitharana | Aspiring Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Dilshani Vitharana, an aspiring Full-Stack Developer and Software Engineering undergraduate at NSBM Green University with MERN Stack internship experience."
+    />
+    <meta name="author" content="Dilshani Vitharana" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph (link previews on LinkedIn, WhatsApp, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dilshani Vitharana" />
+    <meta property="og:title" content="Dilshani Vitharana | Aspiring Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Software Engineering undergraduate at NSBM Green University with MERN Stack internship experience. Building modern, responsive web applications."
+    />
+    <meta property="og:locale" content="en_US" />
+    <!--
+      TODO after deploying: add these two tags with your real values.
+      <meta property="og:url" content="https://YOUR-SITE.vercel.app/" />
+      <meta property="og:image" content="https://YOUR-SITE.vercel.app/og-image.png" />
+    -->
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Theme -->
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#060b18" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f8fc" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      Runs before React loads so the page never flashes the wrong theme.
+      Order: saved choice -> system preference -> dark.
+    -->
+    <script>
+      (function () {
+        var isDark = true;
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') {
+            isDark = saved === 'dark';
+          } else {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          }
+        } catch (e) {}
+        document.documentElement.classList.toggle('dark', isDark);
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>This portfolio needs JavaScript enabled to display its content.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
