@@ -144,7 +144,7 @@ Your CV is already set up: the file is `public/Dilshani-Vitharana-CV.pdf` and `c
 
 **To update your CV:** save your new PDF over `public/Dilshani-Vitharana-CV.pdf` (same name). Nothing else to change.
 
-That is all. Three things appear automatically: a **Download CV** button in the navbar (and mobile menu), and a **CV card** in the Contact section with **View CV** (opens the PDF in a new tab) and **Download CV**. Downloads are always named `Dilshani-Vitharana-CV.pdf`. While `cv` is `''`, none of these show.
+That is all. A **CV card** appears in the Contact section with **View CV** (opens the PDF in a new tab) and **Download CV**. Downloads are always named `Dilshani-Vitharana-CV.pdf`. While `cv` is `''`, the card does not show. (The header has no CV button.)
 
 Tip: keep the CV PDF under about 1 MB, and replace the file (same name) whenever you update your CV.
 

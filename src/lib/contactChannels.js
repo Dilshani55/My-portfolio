@@ -77,7 +77,7 @@ export const formEndpoint = contact.enableForm && email ? `https://formsubmit.co
 // The visitor-facing email address (used in "email me directly" fallbacks).
 export const contactEmail = email
 
-// '' unless a CV path was provided. Controls the "Download CV" button in the navbar.
+// '' unless a CV path was provided. Controls the CV card (View + Download) in the Contact section.
 export const cvHref = assetUrl(links.cv)
 
 // The name the CV gets when someone downloads it, e.g. 'Dilshani-Vitharana-CV.pdf'

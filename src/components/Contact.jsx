@@ -1,5 +1,5 @@
-import { ArrowUpRight, Download, Eye, FileText, MapPin } from 'lucide-react'
-import { contact, personal } from '../data/portfolioData'
+import { ArrowUpRight, Download, Eye, FileText } from 'lucide-react'
+import { contact } from '../data/portfolioData'
 import { contactChannels, cvFileName, cvHref, formEndpoint } from '../lib/contactChannels'
 import { cx } from '../lib/helpers'
 import ContactForm from './ContactForm'
@@ -90,9 +90,13 @@ function CvCard() {
 export default function Contact() {
   const hasForm = Boolean(formEndpoint)
 
-  // Cards: every channel + (CV) + Location. If the count is odd, Location takes a full row.
-  const cardCount = contactChannels.length + (cvHref ? 1 : 0) + 1
-  const locationSpan = cardCount % 2 === 1 ? (hasForm ? 'sm:col-span-2 lg:col-span-1' : 'sm:col-span-2') : ''
+  // The cards: every contact channel, plus the CV card when a CV is set.
+  const cards = [
+    ...contactChannels.map((channel) => ({ key: channel.id, node: <ChannelCard channel={channel} /> })),
+    ...(cvHref ? [{ key: 'cv', node: <CvCard /> }] : []),
+  ]
+  // With an odd number of cards, the last one takes a full row so there is no gap in the 2-column layout.
+  const lastCardSpan = cards.length % 2 === 1 ? (hasForm ? 'sm:col-span-2 lg:col-span-1' : 'sm:col-span-2') : ''
 
   return (
     <Section id="contact" labelledBy="contact-title">
@@ -107,25 +111,16 @@ export default function Contact() {
         )}
 
         <ul className={cx('grid gap-4', hasForm ? 'sm:grid-cols-2 lg:grid-cols-1' : 'sm:grid-cols-2 sm:gap-5')}>
-          {contactChannels.map((channel, index) => (
-            <Reveal as="li" key={channel.id} delay={index * 0.08} className="min-w-0">
-              <ChannelCard channel={channel} />
+          {cards.map((card, index) => (
+            <Reveal
+              as="li"
+              key={card.key}
+              delay={index * 0.08}
+              className={cx('min-w-0', index === cards.length - 1 && lastCardSpan)}
+            >
+              {card.node}
             </Reveal>
           ))}
-          {cvHref && (
-            <Reveal as="li" delay={contactChannels.length * 0.08} className="min-w-0">
-              <CvCard />
-            </Reveal>
-          )}
-          <Reveal as="li" delay={(contactChannels.length + 1) * 0.08} className={cx('min-w-0', locationSpan)}>
-            <Card hover={false} className="flex h-full items-center gap-4 p-5 sm:p-6">
-              <IconBox icon={MapPin} />
-              <div>
-                <p className="font-display text-base font-semibold text-fg">Location</p>
-                <p className="text-sm text-muted">{personal.location}</p>
-              </div>
-            </Card>
-          </Reveal>
         </ul>
       </div>
     </Section>

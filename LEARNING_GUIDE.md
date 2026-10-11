@@ -189,7 +189,7 @@ Nothing new to install. This phase is mostly about the *classes* and *attributes
 2. The "Main focus" line wrapped badly on phones. Fixed by grouping its text.
 3. Certificate cards did not line up. Fixed with `flex-1`.
 4. The logo tap area was smaller than 44 px. Fixed with padding.
-5. The CV button could crowd the navbar at about 1024 px. It is now icon-only between 1024 and 1280 px.
+5. A CV button in the navbar could crowd the links at about 1024 px. (Later you asked to remove it from the header, so the CV now lives only in the Contact section.)
 
 **Concept:** **debugging** = test, find the real cause, fix the cause (not the symptom), test again. (Cause එක හොයලා fix කරනවා.)
 

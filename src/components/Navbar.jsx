@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Download, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { navItems, personal } from '../data/portfolioData'
-import { cvFileName, cvHref } from '../lib/contactChannels'
 import { cx } from '../lib/helpers'
 import { useActiveSection } from '../hooks/useActiveSection'
 import ThemeToggle from './ui/ThemeToggle'
@@ -86,18 +85,6 @@ export default function Navbar({ theme, onToggleTheme }) {
 
         {/* Right-side controls */}
         <div className="flex items-center gap-2">
-          {/* Shown ONLY when a real CV path exists in portfolioData.js */}
-          {cvHref && (
-            <a
-              href={cvHref}
-              download={cvFileName}
-              className="hidden min-h-11 items-center gap-2 rounded-xl border border-line bg-surface px-3.5 text-sm font-semibold text-fg transition duration-200 hover:border-accent/50 hover:text-accent sm:inline-flex xl:px-4"
-            >
-              <Download className="h-4 w-4" aria-hidden="true" />
-              {/* Between 1024px and 1280px the bar is tight, so only the icon shows (text stays for screen readers) */}
-              <span className="lg:sr-only xl:not-sr-only">Download CV</span>
-            </a>
-          )}
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <button
             ref={menuButtonRef}
@@ -148,19 +135,6 @@ export default function Navbar({ theme, onToggleTheme }) {
                   </li>
                 )
               })}
-              {cvHref && (
-                <li className="pt-2">
-                  <a
-                    href={cvHref}
-                    download={cvFileName}
-                    onClick={closeMenu}
-                    className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 text-base font-semibold text-fg"
-                  >
-                    <Download className="h-4 w-4" aria-hidden="true" />
-                    Download CV
-                  </a>
-                </li>
-              )}
             </ul>
           </motion.div>
         )}
